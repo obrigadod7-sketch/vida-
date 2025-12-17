@@ -427,44 +427,33 @@ async def get_services(category: Optional[str] = None):
 
 @api_router.post("/ai/chat")
 async def ai_chat(message_data: AIMessage, current_user: User = Depends(get_current_user)):
-    try:
-        pdf_processor.load_index()
-        relevant_chunks = pdf_processor.search(message_data.message, k=3)
-        
-        context = "\n\n".join(relevant_chunks) if relevant_chunks else "Informação não encontrada no guia Watizat."
-        
-        system_message = f"""Você é um assistente especializado em ajudar migrantes em Paris. 
-        Use as informações do guia Watizat abaixo para responder perguntas.
-        Seja empático, claro e objetivo. Responda em {message_data.language}.
-        
-        Contexto do Watizat:
-        {context}
-        """
-        
-        chat = LlmChat(
-            api_key=os.environ['EMERGENT_LLM_KEY'],
-            session_id=f"user_{current_user.id}",
-            system_message=system_message
-        ).with_model("openai", "gpt-5.1")
-        
-        user_message = UserMessage(text=message_data.message)
-        response = await chat.send_message(user_message)
-        
-        chat_record = {
-            'id': str(uuid.uuid4()),
-            'user_id': current_user.id,
-            'message': message_data.message,
-            'response': response,
-            'language': message_data.language,
-            'created_at': datetime.now(timezone.utc).isoformat()
-        }
-        await db.ai_chats.insert_one(chat_record)
-        
-        return {'response': response, 'sources': relevant_chunks[:2] if relevant_chunks else []}
+    """
+    Endpoint de chat com IA - DESABILITADO no Render
+    A funcionalidade de IA requer integração específica não disponível neste deploy.
+    """
+    # Retornar resposta informativa em vez de erro
+    response_text = """Olá! O assistente de IA do Watizat está temporariamente indisponível nesta versão.
+
+Para obter ajuda, você pode:
+• Criar um post na seção "Preciso de Ajuda"
+• Entrar em contato com voluntários disponíveis
+• Consultar os locais de ajuda no mapa
+
+Estamos trabalhando para restaurar esta funcionalidade em breve!"""
     
-    except Exception as e:
-        logging.error(f"AI Chat error: {str(e)}")
-        raise HTTPException(status_code=500, detail="Error processing message")
+    # Salvar registro mesmo sem IA
+    chat_record = {
+        'id': str(uuid.uuid4()),
+        'user_id': current_user.id,
+        'message': message_data.message,
+        'response': response_text,
+        'language': message_data.language,
+        'ai_enabled': False,
+        'created_at': datetime.now(timezone.utc).isoformat()
+    }
+    await db.ai_chats.insert_one(chat_record)
+    
+    return {'response': response_text, 'sources': [], 'ai_enabled': False}
 
 @api_router.post("/matches")
 async def create_match(helper_id: str, current_user: User = Depends(get_current_user)):
