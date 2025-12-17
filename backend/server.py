@@ -1322,6 +1322,25 @@ async def get_sidebar_content():
 
 app.include_router(api_router)
 
+# Health check na raiz para o Render
+@app.get("/")
+async def health_check():
+    return {
+        "status": "ok",
+        "message": "Watizat API is running",
+        "api_endpoint": "/api"
+    }
+
+# Health check alternativo
+@app.get("/health")
+async def health():
+    try:
+        # Testa conexão MongoDB
+        await db.command('ping')
+        return {"status": "healthy", "database": "connected"}
+    except Exception as e:
+        return {"status": "unhealthy", "database": "disconnected", "error": str(e)}
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
