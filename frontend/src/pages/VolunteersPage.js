@@ -88,8 +88,8 @@ export default function VolunteersPage() {
     <div className="min-h-screen bg-background pb-20" data-testid="volunteers-page">
       <div className="bg-gradient-to-br from-primary to-secondary text-white py-6 sm:py-8 px-4">
         <div className="container mx-auto max-w-4xl">
-          <h1 className="text-2xl sm:text-3xl font-heading font-bold mb-2">🤝 Profissionais Voluntários</h1>
-          <p className="text-sm sm:text-base text-white/90 mb-4 sm:mb-6">Conecte-se com profissionais que oferecem ajuda gratuita</p>
+          <h1 className="text-2xl sm:text-3xl font-heading font-bold mb-2">🤝 {t('professionalVolunteers')}</h1>
+          <p className="text-sm sm:text-base text-white/90 mb-4 sm:mb-6">{t('connectWithProfessionals')}</p>
           
           <div className="flex gap-2 sm:gap-3 flex-col sm:flex-row">
             <div className="flex-1 relative">
@@ -98,16 +98,16 @@ export default function VolunteersPage() {
                 data-testid="search-volunteers"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Buscar por nome ou especialidade..."
+                placeholder={t('searchByNameOrSpecialty')}
                 className="pl-10 rounded-xl bg-white"
               />
             </div>
             <Select value={areaFilter} onValueChange={setAreaFilter}>
               <SelectTrigger className="w-full sm:w-64 rounded-xl bg-white">
-                <SelectValue placeholder="Todas as áreas" />
+                <SelectValue placeholder={t('allAreas')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Todas as áreas</SelectItem>
+                <SelectItem value="all">{t('allAreas')}</SelectItem>
                 {PROFESSIONAL_AREAS.map(area => (
                   <SelectItem key={area.value} value={area.value}>
                     <span className="mr-2">{area.icon}</span>
@@ -129,7 +129,7 @@ export default function VolunteersPage() {
             size="sm"
             className={`rounded-full whitespace-nowrap ${areaFilter === 'all' ? 'bg-primary text-white' : ''}`}
           >
-            Todos
+            {t('all')}
           </Button>
           {PROFESSIONAL_AREAS.slice(0, 5).map(area => (
             <Button
@@ -148,14 +148,14 @@ export default function VolunteersPage() {
 
       <div className="container mx-auto px-4 py-6 max-w-4xl">
         {loading ? (
-          <div className="text-center py-12 text-textMuted">Carregando voluntários...</div>
+          <div className="text-center py-12 text-textMuted">{t('loadingVolunteers')}</div>
         ) : filteredVolunteers.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-6xl mb-4">🔍</div>
             <p className="text-textMuted text-lg">
               {volunteers.length === 0 
-                ? 'Nenhum voluntário cadastrado ainda' 
-                : 'Nenhum voluntário encontrado com esses filtros'}
+                ? t('noVolunteersYet')
+                : t('noVolunteersFilter')}
             </p>
           </div>
         ) : (
