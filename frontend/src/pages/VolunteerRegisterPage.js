@@ -324,13 +324,13 @@ export default function VolunteerRegisterPage() {
             <div className="space-y-4 sm:space-y-6 animate-fade-in">
               <h2 className="text-xl sm:text-2xl font-heading font-bold text-textPrimary mb-4 sm:mb-6 flex items-center gap-2">
                 <Briefcase size={24} className="text-primary sm:w-7 sm:h-7" />
-                Área Profissional
+                {t('professionalArea')}
               </h2>
 
               <div>
                 <Label className="text-sm sm:text-base font-bold mb-3 flex items-center gap-2">
                   <span className="text-red-500">*</span>
-                  Selecione sua Área de Atuação
+                  {t('selectYourArea')}
                 </Label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {PROFESSIONAL_AREAS.map(area => (
@@ -359,56 +359,56 @@ export default function VolunteerRegisterPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
                   <Label className="text-sm sm:text-base font-bold mb-2">
-                    Especialidades (separadas por vírgula)
+                    {t('specialtiesComma')}
                   </Label>
                   <Input
                     value={specialties}
                     onChange={(e) => setSpecialties(e.target.value)}
-                    placeholder="Ex: Direito de Família, Asilo"
+                    placeholder={t('specialtiesExample')}
                     className="rounded-xl h-11 sm:h-12 text-sm sm:text-base"
                   />
                 </div>
 
                 <div>
                   <Label className="text-sm sm:text-base font-bold mb-2">
-                    Organização/Empresa Atual
+                    {t('organization')}
                   </Label>
                   <Input
                     value={organization}
                     onChange={(e) => setOrganization(e.target.value)}
-                    placeholder="Nome da organização"
+                    placeholder={t('organizationName')}
                     className="rounded-xl h-11 sm:h-12 text-sm sm:text-base"
                   />
                 </div>
 
                 <div>
                   <Label className="text-sm sm:text-base font-bold mb-2">
-                    Número de Registro Profissional
+                    {t('professionalRegistration')}
                   </Label>
                   <Input
                     value={professionalId}
                     onChange={(e) => setProfessionalId(e.target.value)}
-                    placeholder="Ex: OAB, CRM, COREN"
+                    placeholder={t('registrationExample')}
                     className="rounded-xl h-11 sm:h-12 text-sm sm:text-base"
                   />
-                  <p className="text-xs text-textMuted mt-1">Opcional, mas aumenta credibilidade</p>
+                  <p className="text-xs text-textMuted mt-1">{t('optionalCredibility')}</p>
                 </div>
 
                 <div>
                   <Label className="text-sm sm:text-base font-bold mb-2">
-                    Anos de Experiência
+                    {t('yearsOfExperience')}
                   </Label>
                   <select
                     value={yearsExperience}
                     onChange={(e) => setYearsExperience(e.target.value)}
                     className="w-full h-11 sm:h-12 px-3 border rounded-xl bg-white text-sm sm:text-base"
                   >
-                    <option value="">Selecione</option>
-                    <option value="0-2">0-2 anos</option>
-                    <option value="3-5">3-5 anos</option>
-                    <option value="6-10">6-10 anos</option>
-                    <option value="11-15">11-15 anos</option>
-                    <option value="16+">Mais de 16 anos</option>
+                    <option value="">{t('select')}</option>
+                    <option value="0-2">{t('years02')}</option>
+                    <option value="3-5">{t('years35')}</option>
+                    <option value="6-10">{t('years610')}</option>
+                    <option value="11-15">{t('years1115')}</option>
+                    <option value="16+">{t('years16plus')}</option>
                   </select>
                 </div>
               </div>
