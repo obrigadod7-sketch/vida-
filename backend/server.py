@@ -427,6 +427,44 @@ async def get_services(category: Optional[str] = None):
 @api_router.post("/ai/chat")
 async def ai_chat(message_data: AIMessage, current_user: User = Depends(get_current_user)):
     try:
+        # Verificar se a chave OpenAI está configurada
+        openai_key = os.environ.get('OPENAI_API_KEY')
+        
+        if not openai_key:
+            # Retornar resposta baseada no guia Watizat sem IA
+            pdf_processor.load_index()
+            relevant_chunks = pdf_processor.search(message_data.message, k=3)
+            
+            if relevant_chunks:
+                context_response = f"""Encontrei as seguintes informações no Guia Watizat que podem ajudar:
+
+{chr(10).join([f"• {chunk[:300]}..." if len(chunk) > 300 else f"• {chunk}" for chunk in relevant_chunks[:3]])}
+
+Para mais informações, consulte o Guia Watizat completo ou entre em contato com um voluntário."""
+            else:
+                context_response = """Não encontrei informações específicas sobre sua pergunta no guia.
+
+Você pode:
+• Criar um post na seção "Preciso de Ajuda"
+• Entrar em contato com voluntários disponíveis
+• Consultar os locais de ajuda no mapa
+
+Estamos aqui para ajudar!"""
+            
+            chat_record = {
+                'id': str(uuid.uuid4()),
+                'user_id': current_user.id,
+                'message': message_data.message,
+                'response': context_response,
+                'language': message_data.language,
+                'ai_enabled': False,
+                'created_at': datetime.now(timezone.utc).isoformat()
+            }
+            await db.ai_chats.insert_one(chat_record)
+            
+            return {'response': context_response, 'sources': relevant_chunks[:2] if relevant_chunks else [], 'ai_enabled': False}
+        
+        # Com chave OpenAI - usar IA
         pdf_processor.load_index()
         relevant_chunks = pdf_processor.search(message_data.message, k=3)
         
@@ -442,7 +480,7 @@ async def ai_chat(message_data: AIMessage, current_user: User = Depends(get_curr
         
         # Usar OpenAI diretamente
         openai_client = AsyncOpenAI(
-            api_key=os.environ.get('OPENAI_API_KEY')
+            api_key=openai_key
         )
         
         response = await openai_client.chat.completions.create(
@@ -463,11 +501,12 @@ async def ai_chat(message_data: AIMessage, current_user: User = Depends(get_curr
             'message': message_data.message,
             'response': ai_response,
             'language': message_data.language,
+            'ai_enabled': True,
             'created_at': datetime.now(timezone.utc).isoformat()
         }
         await db.ai_chats.insert_one(chat_record)
         
-        return {'response': ai_response, 'sources': relevant_chunks[:2] if relevant_chunks else []}
+        return {'response': ai_response, 'sources': relevant_chunks[:2] if relevant_chunks else [], 'ai_enabled': True}
     
     except Exception as e:
         logging.error(f"AI Chat error: {str(e)}")
