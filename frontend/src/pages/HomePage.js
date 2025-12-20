@@ -361,17 +361,17 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-2 sm:mb-3">
             <h1 className="text-lg sm:text-2xl font-heading font-bold text-textPrimary">Feed</h1>
             
-            {/* Botões de Emergência */}
+            {/* Botões de Emergência - SUPER CHAMATIVOS */}
             <div className="flex gap-2">
               {/* Botão SOS - Emergência França */}
               <a
                 href="tel:112"
-                className="flex items-center gap-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full text-xs sm:text-sm shadow-lg animate-pulse hover:animate-none transition-all"
+                className="relative flex items-center gap-1 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-red-600 via-red-500 to-red-600 hover:from-red-700 hover:via-red-600 hover:to-red-700 text-white font-extrabold rounded-full text-xs sm:text-sm shadow-[0_0_20px_rgba(239,68,68,0.7)] hover:shadow-[0_0_30px_rgba(239,68,68,0.9)] border-2 border-red-400 animate-pulse hover:animate-none transition-all transform hover:scale-105"
                 title="Ligar para Emergência - 112"
               >
-                <span className="text-sm sm:text-base">🆘</span>
-                <span className="hidden sm:inline">SOS</span>
-                <span className="sm:hidden">112</span>
+                <span className="text-base sm:text-lg drop-shadow-lg">🆘</span>
+                <span className="font-black tracking-wide">SOS</span>
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-ping"></span>
               </a>
               
               {/* Botão Falar com Pessoa Real - WhatsApp */}
@@ -379,11 +379,11 @@ export default function HomePage() {
                 href="https://wa.me/5514996078465?text=Olá! Preciso de ajuda."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-full text-xs sm:text-sm shadow-lg transition-all"
-                title="Falar com uma pessoa real"
+                className="flex items-center gap-1 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-500 hover:from-yellow-600 hover:via-amber-500 hover:to-yellow-600 text-black font-extrabold rounded-full text-xs sm:text-sm shadow-[0_0_15px_rgba(251,191,36,0.6)] hover:shadow-[0_0_25px_rgba(251,191,36,0.8)] border-2 border-yellow-300 transition-all transform hover:scale-105"
+                title="Falar com uma pessoa real via WhatsApp"
               >
-                <span className="text-sm sm:text-base">💬</span>
-                <span className="hidden sm:inline">Ajuda</span>
+                <span className="text-base sm:text-lg">💬</span>
+                <span className="font-black tracking-wide hidden sm:inline">AJUDA</span>
               </a>
             </div>
           </div>
