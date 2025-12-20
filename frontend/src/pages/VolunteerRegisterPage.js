@@ -82,13 +82,13 @@ export default function VolunteerRegisterPage() {
   const nextStep = () => {
     if (step === 1) {
       if (!name || !email || !password) {
-        toast.error('Preencha todos os campos obrigatórios');
+        toast.error(t('fillRequiredFields'));
         return;
       }
     }
     if (step === 2) {
       if (!professionalArea) {
-        toast.error('Selecione uma área profissional');
+        toast.error(t('selectProfessionalArea'));
         return;
       }
     }
@@ -115,12 +115,12 @@ export default function VolunteerRegisterPage() {
 
   const handleSubmit = async () => {
     if (!availability) {
-      toast.error('Informe sua disponibilidade');
+      toast.error(t('informAvailability'));
       return;
     }
 
     if (helpCategories.length === 0) {
-      toast.error('Selecione pelo menos uma categoria de ajuda');
+      toast.error(t('selectAtLeastOneCategory'));
       return;
     }
 
@@ -155,23 +155,23 @@ export default function VolunteerRegisterPage() {
 
       if (response.ok) {
         login(data.token, data.user);
-        toast.success('Cadastro realizado com sucesso!');
+        toast.success(t('registerSuccess'));
         navigate('/volunteers');
       } else {
-        toast.error(data.detail || 'Erro ao cadastrar');
+        toast.error(data.detail || t('registerError'));
       }
     } catch (error) {
-      toast.error('Erro de conexão');
+      toast.error(t('connectionError'));
     } finally {
       setLoading(false);
     }
   };
 
   const steps = [
-    { number: 1, label: 'Pessoal', icon: User },
-    { number: 2, label: 'Profissional', icon: Briefcase },
-    { number: 3, label: 'Formação', icon: GraduationCap },
-    { number: 4, label: 'Disponibilidade', icon: Shield }
+    { number: 1, label: t('stepPersonal'), icon: User },
+    { number: 2, label: t('stepProfessional'), icon: Briefcase },
+    { number: 3, label: t('stepFormation'), icon: GraduationCap },
+    { number: 4, label: t('stepAvailability'), icon: Shield }
   ];
 
   return (
