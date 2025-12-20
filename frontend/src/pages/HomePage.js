@@ -956,34 +956,38 @@ export default function HomePage() {
             {categoryFilter !== 'all' || typeFilter !== 'all' ? 'Nenhum post encontrado com esses filtros.' : 'Nenhum post ainda. Seja o primeiro!'}
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             {filteredPosts.map((post) => (
               <div 
                 key={post.id} 
                 data-testid="post-card"
-                className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-card card-hover overflow-hidden"
+                className="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-5 shadow-card card-hover overflow-hidden"
               >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                      <User size={20} className="text-white" />
+                <div className="flex items-start justify-between mb-2 sm:mb-3 gap-2">
+                  <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center flex-shrink-0">
+                      <User size={16} className="sm:w-5 sm:h-5 text-white" />
                     </div>
-                    <div>
-                      <p className="font-medium text-textPrimary">{post.user?.name}</p>
-                      <p className="text-sm text-textMuted capitalize">{post.user?.role}</p>
+                    <div className="min-w-0">
+                      <p className="font-medium text-textPrimary text-sm sm:text-base truncate">{post.user?.name}</p>
+                      <p className="text-xs sm:text-sm text-textMuted capitalize">{post.user?.role}</p>
                     </div>
                   </div>
                   {/* Mostrar múltiplas categorias se existirem */}
-                  <div className="flex flex-wrap gap-1 justify-end max-w-[50%]">
-                    {(post.categories && post.categories.length > 0 ? post.categories : [post.category]).map((cat, idx) => (
+                  <div className="flex flex-wrap gap-1 justify-end flex-shrink-0 max-w-[40%]">
+                    {(post.categories && post.categories.length > 0 ? post.categories : [post.category]).slice(0, 2).map((cat, idx) => (
                       <span 
                         key={idx}
-                        className={`px-2 py-1 rounded-full text-xs font-medium border ${getCategoryStyle(cat)} flex items-center gap-1`}
+                        className={`px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-medium border ${getCategoryStyle(cat)} flex items-center gap-0.5`}
                       >
                         <span>{getCategoryIcon(cat)}</span>
-                        <span className="hidden sm:inline">{categories.find(c => c.value === cat)?.label}</span>
                       </span>
                     ))}
+                    {(post.categories?.length > 2) && (
+                      <span className="px-1.5 py-0.5 rounded-full text-[10px] bg-gray-100 text-gray-600">
+                        +{post.categories.length - 2}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-textPrimary mb-2 break-words">{post.title}</h3>
