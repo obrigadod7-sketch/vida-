@@ -7,49 +7,52 @@ import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { toast } from 'sonner';
 import { ArrowLeft, ArrowRight, Check, User, Briefcase, GraduationCap, Shield, Phone, Mail } from 'lucide-react';
-
-const PROFESSIONAL_AREAS = [
-  { value: 'legal', label: 'Jurídico', icon: '⚖️', desc: 'Advogado, Assistente Jurídico' },
-  { value: 'health', label: 'Saúde', icon: '🏥', desc: 'Médico, Enfermeiro, Psicólogo' },
-  { value: 'education', label: 'Educação', icon: '📚', desc: 'Professor, Tutor' },
-  { value: 'translation', label: 'Tradução', icon: '🌍', desc: 'Tradutor, Intérprete' },
-  { value: 'family', label: 'Família e Social', icon: '👨‍👩‍👧', desc: 'Assistente Social, Mediador' },
-  { value: 'employment', label: 'Orientação Profissional', icon: '💼', desc: 'RH, Coach de Carreira' },
-  { value: 'housing', label: 'Habitação', icon: '🏠', desc: 'Corretor, Assistente Imobiliário' },
-  { value: 'administration', label: 'Administração', icon: '📋', desc: 'Assistente Administrativo' },
-  { value: 'finance', label: 'Finanças', icon: '💰', desc: 'Contador, Consultor Financeiro' },
-  { value: 'technology', label: 'Tecnologia', icon: '💻', desc: 'Desenvolvedor, Suporte TI' }
-];
-
-const HELP_TYPES = [
-  'Consultas pontuais',
-  'Acompanhamento contínuo',
-  'Workshops/Palestras',
-  'Revisão de documentos',
-  'Orientação remota',
-  'Atendimento presencial',
-  'Tradução de documentos',
-  'Suporte emocional'
-];
-
-const HELP_CATEGORIES = [
-  { value: 'food', label: 'Alimentação', icon: '🍽️', desc: 'Distribuição de alimentos, refeições' },
-  { value: 'legal', label: 'Jurídico', icon: '⚖️', desc: 'Assistência jurídica, documentação' },
-  { value: 'health', label: 'Saúde', icon: '🏥', desc: 'Atendimento médico, psicológico' },
-  { value: 'housing', label: 'Moradia', icon: '🏠', desc: 'Abrigo, habitação' },
-  { value: 'work', label: 'Emprego', icon: '💼', desc: 'Orientação profissional, CV' },
-  { value: 'education', label: 'Educação', icon: '📚', desc: 'Cursos, escolarização' },
-  { value: 'social', label: 'Apoio Social', icon: '🤝', desc: 'Assistência social, integração' },
-  { value: 'clothes', label: 'Roupas', icon: '👕', desc: 'Vestuário, calçados' },
-  { value: 'furniture', label: 'Móveis', icon: '🪑', desc: 'Móveis, utensílios domésticos' },
-  { value: 'transport', label: 'Transporte', icon: '🚗', desc: 'Ajuda com deslocamento' }
-];
+import { useTranslation } from 'react-i18next';
 
 export default function VolunteerRegisterPage() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  // Professional Areas with translations
+  const PROFESSIONAL_AREAS = [
+    { value: 'legal', label: t('volunteerAreaLegal'), icon: '⚖️', desc: t('volunteerAreaLegalDesc') },
+    { value: 'health', label: t('volunteerAreaHealth'), icon: '🏥', desc: t('volunteerAreaHealthDesc') },
+    { value: 'education', label: t('volunteerAreaEducation'), icon: '📚', desc: t('volunteerAreaEducationDesc') },
+    { value: 'translation', label: t('volunteerAreaTranslation'), icon: '🌍', desc: t('volunteerAreaTranslationDesc') },
+    { value: 'family', label: t('volunteerAreaFamily'), icon: '👨‍👩‍👧', desc: t('volunteerAreaFamilyDesc') },
+    { value: 'employment', label: t('volunteerAreaEmployment'), icon: '💼', desc: t('volunteerAreaEmploymentDesc') },
+    { value: 'housing', label: t('volunteerAreaHousing'), icon: '🏠', desc: t('volunteerAreaHousingDesc') },
+    { value: 'administration', label: t('volunteerAreaAdmin'), icon: '📋', desc: t('volunteerAreaAdminDesc') },
+    { value: 'finance', label: t('volunteerAreaFinance'), icon: '💰', desc: t('volunteerAreaFinanceDesc') },
+    { value: 'technology', label: t('volunteerAreaTech'), icon: '💻', desc: t('volunteerAreaTechDesc') }
+  ];
+
+  const HELP_TYPES = [
+    t('helpTypePunctual'),
+    t('helpTypeContinuous'),
+    t('helpTypeWorkshops'),
+    t('helpTypeDocReview'),
+    t('helpTypeRemote'),
+    t('helpTypeInPerson'),
+    t('helpTypeTranslation'),
+    t('helpTypeEmotional')
+  ];
+
+  const HELP_CATEGORIES = [
+    { value: 'food', label: t('food'), icon: '🍽️', desc: t('helpCatFoodDesc') },
+    { value: 'legal', label: t('legal'), icon: '⚖️', desc: t('helpCatLegalDesc') },
+    { value: 'health', label: t('health'), icon: '🏥', desc: t('helpCatHealthDesc') },
+    { value: 'housing', label: t('housing'), icon: '🏠', desc: t('helpCatHousingDesc') },
+    { value: 'work', label: t('work'), icon: '💼', desc: t('helpCatWorkDesc') },
+    { value: 'education', label: t('education'), icon: '📚', desc: t('helpCatEducationDesc') },
+    { value: 'social', label: t('social'), icon: '🤝', desc: t('helpCatSocialDesc') },
+    { value: 'clothes', label: t('helpCatClothes'), icon: '👕', desc: t('helpCatClothesDesc') },
+    { value: 'furniture', label: t('helpCatFurniture'), icon: '🪑', desc: t('helpCatFurnitureDesc') },
+    { value: 'transport', label: t('transport'), icon: '🚗', desc: t('helpCatTransportDesc') }
+  ];
 
   // Etapa 1: Informações Pessoais
   const [name, setName] = useState('');
