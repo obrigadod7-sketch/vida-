@@ -243,7 +243,7 @@ export default function VolunteersPage() {
                   {volunteer.years_experience && (
                     <div className="mb-3 flex items-center gap-2 text-sm text-textSecondary">
                       <Clock size={16} />
-                      <span>{volunteer.years_experience} de experiência</span>
+                      <span>{volunteer.years_experience} {t('ofExperience')}</span>
                     </div>
                   )}
 
@@ -251,7 +251,7 @@ export default function VolunteersPage() {
                     <div className="mb-3 p-2 bg-green-50 rounded-lg flex items-center gap-2">
                       <Shield size={16} className="text-green-600" />
                       <span className="text-xs font-medium text-green-700">
-                        Registro: {volunteer.professional_id}
+                        {t('registration')}: {volunteer.professional_id}
                       </span>
                     </div>
                   )}
