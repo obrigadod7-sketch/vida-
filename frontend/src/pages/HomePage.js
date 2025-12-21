@@ -358,20 +358,19 @@ export default function HomePage() {
       <div className="bg-white border-b border-gray-100 sticky top-0 z-10 glassmorphism">
         <div className="px-3 sm:px-4 py-2 sm:py-4">
           {/* Header com título e botões de emergência */}
-          <div className="flex items-center justify-between mb-2 sm:mb-3">
-            <h1 className="text-lg sm:text-2xl font-heading font-bold text-textPrimary">Feed</h1>
+          <div className="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+            <h1 className="text-base sm:text-2xl font-heading font-bold text-textPrimary flex-shrink-0">Feed</h1>
             
-            {/* Botões de Emergência - SUPER CHAMATIVOS */}
-            <div className="flex gap-2">
+            {/* Botões de Emergência - Compactos no Mobile */}
+            <div className="flex gap-1.5 sm:gap-2 flex-shrink-0">
               {/* Botão SOS - Emergência França */}
               <a
                 href="tel:112"
-                className="relative flex items-center gap-1 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-red-600 via-red-500 to-red-600 hover:from-red-700 hover:via-red-600 hover:to-red-700 text-white font-extrabold rounded-full text-xs sm:text-sm shadow-[0_0_20px_rgba(239,68,68,0.7)] hover:shadow-[0_0_30px_rgba(239,68,68,0.9)] border-2 border-red-400 animate-pulse hover:animate-none transition-all transform hover:scale-105"
+                className="relative flex items-center gap-0.5 sm:gap-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-gradient-to-r from-red-600 via-red-500 to-red-600 hover:from-red-700 hover:via-red-600 hover:to-red-700 text-white font-extrabold rounded-full text-[10px] sm:text-sm shadow-[0_0_15px_rgba(239,68,68,0.6)] border border-red-400 animate-pulse hover:animate-none transition-all"
                 title="Ligar para Emergência - 112"
               >
-                <span className="text-base sm:text-lg drop-shadow-lg">🆘</span>
-                <span className="font-black tracking-wide">SOS</span>
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-ping"></span>
+                <span className="text-sm sm:text-base">🆘</span>
+                <span className="font-black">SOS</span>
               </a>
               
               {/* Botão Falar com Pessoa Real - WhatsApp */}
@@ -379,11 +378,12 @@ export default function HomePage() {
                 href="https://wa.me/5514996078465?text=Olá! Preciso de ajuda."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-500 hover:from-yellow-600 hover:via-amber-500 hover:to-yellow-600 text-black font-extrabold rounded-full text-[10px] sm:text-sm shadow-[0_0_15px_rgba(251,191,36,0.6)] hover:shadow-[0_0_25px_rgba(251,191,36,0.8)] border-2 border-yellow-300 transition-all transform hover:scale-105"
+                className="flex items-center gap-0.5 sm:gap-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-gradient-to-r from-yellow-500 via-amber-400 to-yellow-500 hover:from-yellow-600 hover:via-amber-500 hover:to-yellow-600 text-black font-extrabold rounded-full text-[9px] sm:text-xs shadow-[0_0_12px_rgba(251,191,36,0.5)] border border-yellow-300 transition-all"
                 title="Falar com uma pessoa real via WhatsApp"
               >
-                <span className="text-base sm:text-lg">💬</span>
-                <span className="font-black tracking-wide">Fale comigo, você não está só</span>
+                <span className="text-sm sm:text-base">💬</span>
+                <span className="font-black hidden xs:inline sm:inline">Fale comigo</span>
+                <span className="font-black xs:hidden">Ajuda</span>
               </a>
             </div>
           </div>
