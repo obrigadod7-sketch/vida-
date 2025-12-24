@@ -292,7 +292,7 @@ async def get_profile(current_user: User = Depends(get_current_user)):
 
 @api_router.put("/profile")
 async def update_profile(updates: dict, current_user: User = Depends(get_current_user)):
-    allowed_fields = ['name', 'bio', 'location', 'languages', 'categories']
+    allowed_fields = ['name', 'bio', 'location', 'languages', 'categories', 'help_categories', 'need_categories', 'display_name', 'use_display_name']
     update_data = {k: v for k, v in updates.items() if k in allowed_fields}
     
     await db.users.update_one({'id': current_user.id}, {'$set': update_data})
